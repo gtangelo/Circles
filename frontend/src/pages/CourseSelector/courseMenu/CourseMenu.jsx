@@ -201,7 +201,7 @@ const MenuItem = ({ selected, courseCode, activeCourse, setActiveCourse, accurat
 
   return (
     <Menu.Item
-      className={`text menuItemText ${selected !== undefined && "bold"} 
+      className={`text menuItem menuItemText ${selected !== undefined && "bold"} 
       ${activeCourse === courseCode && "activeCourse"}`}
       key={courseCode}
       onClick={handleClick}
@@ -217,7 +217,6 @@ const WarningIcon = ({ text }) => {
       <IoWarningOutline
                 size="1em"
                 color="#DC9930"
-                style={{ position: "absolute", marginLeft: "0.3em", top: "calc(50% - 0.5em)" }}
               />
     </Tooltip>
   );

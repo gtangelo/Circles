@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { Layout, notification } from "antd";
 import { FeedbackBtn } from "./components/feedbackBtn/FeedbackBtn";
 import Header from "./components/header/Header";
@@ -10,6 +15,7 @@ import TermPlanner from "./pages/TermPlanner/main";
 import "./App.less";
 import Loading from "./components/Loading/Loading";
 import "./axios";
+import NotFound from "./components/notFound/NotFound";
 
 const { Content } = Layout;
 
@@ -63,7 +69,9 @@ function App() {
                   </div>
                 }
               />
+              <Route path="*" element={<NotFound setLoading={setLoading} />} />
             </Routes>
+
             <FeedbackBtn />
           </Content>
         </>

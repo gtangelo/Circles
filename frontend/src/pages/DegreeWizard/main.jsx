@@ -24,8 +24,8 @@ function DegreeWizard() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    // TODO: Warning dialog before planner is reset.
-    if (localStorage.getItem("planner")) {
+    // check is user has pre-existing data
+    if (localStorage.getItem("planner") && localStorage.getItem("degree")) {
       setIsModalVisible(true);
     }
   }, []);

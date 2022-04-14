@@ -8,7 +8,7 @@ import { useContextMenu } from "react-contexify";
 import ContextMenu from "./misc/ContextMenu";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Marks from "./Marks"
-import kebabMenuIcon from "./kebabMenuIcon";
+import KebabMenuIcon from "./kebabMenuIcon";
 
 const DraggableCourse = ({ code, index , showMarks }) => {
   const { Text } = Typography;
@@ -75,13 +75,15 @@ const DraggableCourse = ({ code, index , showMarks }) => {
               ))}
             <div>
               {isSmall ? (
-                <>
-                  <Text className="text">{code}</Text>
-                  <kebabMenu />
-                  <span><Marks showMarks={showMarks} mark={mark} /></span>
-                </>
+                <div className="draggableCourseContent">
+                  <div>
+                    <Text className="text">{code}</Text>
+                    <Marks showMarks={showMarks} mark={mark} />
+                  </div>
+                  <KebabMenuIcon/>
+                </div>
               ) : (
-                <>
+                <div className="draggableCourseContent">
                   <div>
                     <Text strong className="text">
                       {code}
@@ -89,9 +91,8 @@ const DraggableCourse = ({ code, index , showMarks }) => {
                     <Text className="text">: {title} </Text>
                     <Marks showMarks={showMarks} mark={mark} />
                   </div>
-                  MENU HERE
-                  <kebabMenuIcon />
-                </>
+                  <KebabMenuIcon />
+                </div>
               )}
             </div>
           </li>

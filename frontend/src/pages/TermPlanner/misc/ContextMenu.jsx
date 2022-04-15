@@ -41,8 +41,10 @@ const ContextMenu = ({ code, plannedFor }) => {
     dispatch(addTab(code));
   };
 
-  const changeMark = (mark) => {
-    return mark;
+  const mark = courses.get(code)["mark"];
+  const editMark = (e, mark) => {
+    const x = e.clientX;
+    const y = e.clientY;
   }
 
   return (
@@ -52,7 +54,7 @@ const ContextMenu = ({ code, plannedFor }) => {
           <FaCalendarTimes className="contextMenuIcon" /> Unschedule
         </Item>
       )}
-      <Item onClick={changeMark}>
+      <Item onClick={editMark}>
         <FaEdit className="contextMenuIcon" /> Edit mark
       </Item>
       <Item onClick={handleDelete}>

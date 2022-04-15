@@ -10,6 +10,7 @@ import UnplannedColumn from "./UnplannedColumn";
 import OptionsHeader from "./optionsHeader/main";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import EditMark from "./EditMark"
 import HideYearTooltip from "./HideYearTooltip";
 import {
   moveCourse, setPlannedCourseToTerm, setUnplannedCourseToTerm,
@@ -126,6 +127,7 @@ const TermPlanner = () => {
 
   return (
     <div className="mainContainer">
+      <EditMark code="COMP1511"/>
       <OptionsHeader
         areYearsHidden={areYearsHidden}
         plannerRef={plannerPic}

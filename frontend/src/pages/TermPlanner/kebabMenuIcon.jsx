@@ -1,6 +1,7 @@
 import React from "react";
 import ContextMenu from "./misc/ContextMenu";
 import { useContextMenu } from "react-contexify";
+import { useSelector } from "react-redux";
 import "./main.less";
 
 const KebabMenuIcon = ({ code }) => {

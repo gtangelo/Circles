@@ -60,8 +60,8 @@ const DraggableCourse = ({ code, index , showMarks }) => {
             id={code}
             onContextMenu={displayContextMenu}
           >
-            {!isDragDisabled && shouldHaveWarning
-              && (errorIsInformational ? <IoInformationCircle /> : (
+            {(!isDragDisabled && shouldHaveWarning
+              && (errorIsInformational)) ? <IoInformationCircle /> : (
                 <IoWarningOutline
                   className="alert"
                   size="2.5em"
@@ -71,19 +71,18 @@ const DraggableCourse = ({ code, index , showMarks }) => {
                     marginRight: "8em",
                   }
                 }
-                />
-              ))}
-            <div>
+              />
+            )}
+            <div className="draggableCourseContent">
               {isSmall ? (
-                <div className="draggableCourseContent">
+                <div className="">
                   <div>
                     <Text className="text">{code}</Text>
                     <Marks showMarks={showMarks} mark={mark} />
                   </div>
-                  <KebabMenuIcon/>
                 </div>
               ) : (
-                <div className="draggableCourseContent">
+                <div className="">
                   <div>
                     <Text strong className="text">
                       {code}
@@ -91,9 +90,9 @@ const DraggableCourse = ({ code, index , showMarks }) => {
                     <Text className="text">: {title} </Text>
                     <Marks showMarks={showMarks} mark={mark} />
                   </div>
-                  <KebabMenuIcon />
                 </div>
               )}
+              <KebabMenuIcon />
             </div>
           </li>
         )}

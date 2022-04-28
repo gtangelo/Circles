@@ -516,3 +516,62 @@ body {
      color: #3e3e3e;
   }
 }
+
+// 
+// 
+// Kebab Menu
+// 
+// 
+
+.kebab-menu{
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translateY(-50%);
+}
+.kebab-menu span{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+}
+.kebab-menu span:nth-child(1){
+  top: 0px;
+  left: 35%;
+  transition: .6s;
+}
+.kebab-menu span:nth-child(2){
+  top: 0px;
+  left: 35%;
+  transition: .6s;
+}
+.kebab-menu span:nth-child(3){
+  top: 88px;
+  left: 35%;
+  transition: .6s;
+}
+.kebab-menu span:nth-child(4){
+  top: 175px;
+  left: 35%;
+  transition: .6s;
+}
+.kebab-menu span:nth-child(5){
+  top: 175px;
+  left: 35%;
+  transition: .6s;
+}
+.kebab-menu:hover span:nth-child(1){
+  transform: translate(70px,15px);
+}
+.kebab-menu:hover span:nth-child(2){
+  transform: translate(-70px,15px);
+}
+.kebab-menu:hover span:nth-child(4){
+  transform: translate(-70px,-15px);
+}
+.kebab-menu:hover span:nth-child(5){
+  transform: translate(70px,-15px);
+}

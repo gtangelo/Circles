@@ -1,19 +1,26 @@
 import React, { useState , useSelector } from 'react'
+import "./main.less";
 import "./Marks.less"
+import kebabMenuIcon from './kebabMenuIcon';
+import { Typography } from "antd";
+
 
 const Marks = ({ mark, showMarks }) => {
   // const [mark, setMark] = useState(91);
   // const mark = 100;
   // const course = useSelector((state) => state.courses.course);
+
+  const { Text } = Typography;
   
   return (showMarks) ? (
     <div className="marks-cont">
-      <div className="marks-title">
+      <Text strong className="text">
         Mark:
-      </div>
-      <div className="marks-val">
+      </Text>
+      <Text className="text">
         {(mark && showMarks) ? mark : "N/A"}
-      </div>
+      </Text>
+      <kebabMenuIcon />
     </div>
   ) : null;
 }

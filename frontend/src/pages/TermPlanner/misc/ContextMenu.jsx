@@ -41,6 +41,10 @@ const ContextMenu = ({ code, plannedFor }) => {
     dispatch(addTab(code));
   };
 
+  const changeMark = (mark) => {
+    return mark;
+  }
+
   return (
     <Menu id={id} theme={theme.dark}>
       {plannedFor && (
@@ -48,6 +52,9 @@ const ContextMenu = ({ code, plannedFor }) => {
           <FaCalendarTimes className="contextMenuIcon" /> Unschedule
         </Item>
       )}
+      <Item onClick={changeMark}>
+        <FaEdit className="contextMenuIcon" /> Edit mark
+      </Item>
       <Item onClick={handleDelete}>
         <FaTrash className="contextMenuIcon" /> Delete from Planner
       </Item>

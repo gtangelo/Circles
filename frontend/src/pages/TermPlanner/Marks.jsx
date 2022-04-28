@@ -1,7 +1,7 @@
 import React, { useState , useSelector } from 'react'
 import "./main.less";
 import "./Marks.less"
-import kebabMenuIcon from './kebabMenuIcon';
+import KebabMenuIcon from './KebabMenuIcon';
 import { Typography } from "antd";
 
 
@@ -17,7 +17,7 @@ const Marks = ({ mark, showMarks }) => {
       <Text strong className="text">
         Mark:
       </Text>
-      <Text className="text">
+      <Text className="text marks-val">
         {(mark && showMarks) ? mark : "N/A"}
       </Text>
       <kebabMenuIcon />

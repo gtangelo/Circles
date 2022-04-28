@@ -8,7 +8,7 @@ import { useContextMenu } from "react-contexify";
 import ContextMenu from "./misc/ContextMenu";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Marks from "./Marks"
-import KebabMenuIcon from "./kebabMenuIcon";
+import KebabMenuIcon from "./KebabMenuIcon";
 
 const DraggableCourse = ({ code, index , showMarks }) => {
   const { Text } = Typography;

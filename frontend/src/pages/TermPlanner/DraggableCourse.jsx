@@ -7,8 +7,9 @@ import ReactTooltip from "react-tooltip";
 import { useContextMenu } from "react-contexify";
 import ContextMenu from "./misc/ContextMenu";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import Marks from "./Marks"
 
-const DraggableCourse = ({ code, index }) => {
+const DraggableCourse = ({ code, index , showMarks }) => {
   const { Text } = Typography;
   const { courses, isSummerEnabled, completedTerms } = useSelector((state) => state.planner);
   const theme = useSelector((state) => state.theme);
@@ -80,6 +81,7 @@ const DraggableCourse = ({ code, index }) => {
                     {code}
                   </Text>
                   <Text className="text">: {title} </Text>
+                  <Marks />
                 </>
               )}
             </div>

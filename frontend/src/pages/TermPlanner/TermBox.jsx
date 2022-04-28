@@ -7,7 +7,7 @@ import DraggableCourse from "./DraggableCourse";
 import { toggleTermComplete } from "../../reducers/plannerSlice";
 
 const TermBox = ({
-  name, courses, termsOffered, isDragging,
+  name, courses, termsOffered, isDragging, showMarks
 }) => {
   const term = name.match(/T[0-3]/)[0];
 
@@ -46,7 +46,7 @@ const TermBox = ({
               key={code}
               code={code}
               index={index}
-              showMarks={false}
+              showMarks={showMarks}
             />)}
             {provided.placeholder}
           </ul>

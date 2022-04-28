@@ -35,7 +35,7 @@ const openNotification = () => {
 const TermPlanner = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [termsOffered, setTermsOffered] = useState([]);
-  const [isDragging, setIsDragging] = useState(false);
+  const [isDragging, setIsDragging] = useState(true);
   const {
     years,
     startYear,
@@ -64,6 +64,7 @@ const TermPlanner = () => {
   const currYear = new Date().getFullYear();
 
   const plannerPic = useRef();
+  const [showMarks, setShowMarks] = useState(false);
 
   const handleOnDragStart = (courseItem) => {
     const course = courseItem.draggableId;
@@ -129,7 +130,9 @@ const TermPlanner = () => {
         areYearsHidden={areYearsHidden}
         plannerRef={plannerPic}
         isAllEmpty={isAllEmpty}
-      />
+        showMarks={showMarks}
+        setShowMarks={setShowMarks}
+        />
       {isLoading ? (
         <SkeletonPlanner />
       ) : (
@@ -178,6 +181,7 @@ const TermPlanner = () => {
                           courses={year[term]}
                           termsOffered={termsOffered}
                           isDragging={isDragging}
+                          showMarks={showMarks}
                         />
                       );
                     })}
@@ -185,7 +189,7 @@ const TermPlanner = () => {
                 );
               })}
             </div>
-            <UnplannedColumn />
+            <UnplannedColumn/>
           </div>
         </DragDropContext>
       )}

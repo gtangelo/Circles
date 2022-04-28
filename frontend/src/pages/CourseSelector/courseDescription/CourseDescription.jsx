@@ -133,6 +133,7 @@ const CourseDescription = ({ structure }) => {
         prereqs: course.raw_requirements,
         isLegacy: course.is_legacy,
         isUnlocked: true,
+        mark: null,
         warnings: [],
         handbookNote: course.handbook_note,
         isAccurate: course.is_accurate,

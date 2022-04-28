@@ -13,8 +13,10 @@ import SaveMenu from "./SaveMenu";
 import SettingsMenu from "./SettingsMenu";
 import HelpMenu from "./HelpMenu";
 import { unhideAllYears, unscheduleAll } from "../../../reducers/plannerSlice";
+import { plannerActions } from "../../../actions/plannerActions";
+import { Switch } from "antd";
 
-const OptionsHeader = ({ plannerRef, isAllEmpty }) => {
+const OptionsHeader = ({ plannerRef, isAllEmpty, showMarks, setShowMarks }) => {
   const theme = useSelector((state) => state.theme);
   const { areYearsHidden } = useSelector((state) => state.planner);
   const { years } = useSelector((state) => state.planner);
@@ -87,6 +89,13 @@ const OptionsHeader = ({ plannerRef, isAllEmpty }) => {
         )}
       </div>
 
+      <div className="rightButtons">
+      <Switch
+        className="cs-toggle-locked"
+        onChange={() => setShowMarks((prev) => !prev)}
+        checkedChildren="marks shown"
+        unCheckedChildren="marks hidden"
+      />
       <Tippy
         content={<HelpMenu />}
         moveTransition="transform 0.2s ease-out"
@@ -105,6 +114,7 @@ const OptionsHeader = ({ plannerRef, isAllEmpty }) => {
           </Tooltip>
         </div>
       </Tippy>
+      </div>
     </div>
   );
 };

@@ -15,7 +15,7 @@ const DraggableCourse = ({ code, index , showMarks }) => {
   const theme = useSelector((state) => state.theme);
   // prereqs are populated in CourseDescription.jsx via course.raw_requirements
   const {
-    prereqs, title, isUnlocked, plannedFor, isLegacy, isAccurate, termsOffered, handbookNote,
+    prereqs, title, isUnlocked, plannedFor, isLegacy, isAccurate, termsOffered, handbookNote, mark
   } = courses[code];
   const warningMessage = courses[code].warnings;
   const isOffered = plannedFor ? termsOffered.includes(plannedFor.match(/T[0-3]/)[0]) : true;
@@ -36,7 +36,7 @@ const DraggableCourse = ({ code, index , showMarks }) => {
   const errorIsInformational = shouldHaveWarning && isUnlocked
     && warningMessage.length === 0 && !isLegacy && isAccurate && isOffered;
   return (
-    <>
+    <div style = {{ display: "flex", flexDirection: "row" }}>
       <Draggable
         isDragDisabled={isDragDisabled}
         draggableId={code}
@@ -74,14 +74,17 @@ const DraggableCourse = ({ code, index , showMarks }) => {
               ))}
             <div>
               {isSmall ? (
-                <Text className="text">{code}</Text>
+                <>
+                  <Text className="text">{code}</Text>
+                  <span><Marks showMarks={showMarks} mark={mark} /></span>
+                </>
               ) : (
                 <>
                   <Text strong className="text">
                     {code}
                   </Text>
                   <Text className="text">: {title} </Text>
-                  <Marks />
+                  <Marks showMarks={showMarks} mark={mark} />
                 </>
               )}
             </div>
@@ -101,7 +104,7 @@ const DraggableCourse = ({ code, index , showMarks }) => {
           {!isAccurate ? " The course info may be inaccurate." : ""}
         </ReactTooltip>
       )}
-    </>
+    </div>
   );
 };
 

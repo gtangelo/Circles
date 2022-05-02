@@ -1,30 +1,35 @@
 import React from "react";
-import { Tooltip, Popconfirm } from "antd";
+import { Tooltip, Popconfirm, Switch } from "antd";
 import { useSelector, useDispatch } from "react-redux";
-import { IoCogSharp } from "react-icons/io5";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import { FaRegCalendarTimes } from "react-icons/fa";
-import { FiHelpCircle } from "react-icons/fi";
-import { IoIosEye } from "react-icons/io";
-import { TiDownload } from "react-icons/ti";
+import {
+  DownloadOutlined, EyeFilled, QuestionCircleOutlined, SettingFilled, WarningFilled,
+} from "@ant-design/icons";
 import SaveMenu from "./SaveMenu";
 import SettingsMenu from "./SettingsMenu";
 import HelpMenu from "./HelpMenu";
 import { unhideAllYears, unscheduleAll } from "../../../reducers/plannerSlice";
-import { plannerActions } from "../../../actions/plannerActions";
-import { Switch } from "antd";
 
-const OptionsHeader = ({ plannerRef, isAllEmpty, showMarks, setShowMarks }) => {
+import updateAllWarnings from "../ValidateTermPlanner";
+import "./index.less";
+
+const OptionsHeader = ({
+  plannerRef, isAllEmpty, setSuppress, suppress, showMarks, setShowMarks,
+}) => {
   const theme = useSelector((state) => state.theme);
   const { areYearsHidden } = useSelector((state) => state.planner);
-  const { years } = useSelector((state) => state.planner);
+  const { years, startYear, completedTerms } = useSelector((state) => state.planner);
+  const { programCode, specialisation, minor } = useSelector(
+    (state) => state.degree,
+  );
   const dispatch = useDispatch();
 
   return (
-    <div className="optionsHeader">
-      <div className="leftButtons">
+    <div className="options-header">
+      <div className="left-buttons">
         <Tippy
           content={<SettingsMenu />}
           moveTransition="transform 0.2s ease-out"
@@ -36,8 +41,8 @@ const OptionsHeader = ({ plannerRef, isAllEmpty, showMarks, setShowMarks }) => {
         >
           <div>
             <Tooltip title="Settings">
-              <button type="button" className="settingsButton">
-                <IoCogSharp className="settingsIcon" size="1.5em" />
+              <button type="button" className="settings-button">
+                <SettingFilled className="settings-icon" />
               </button>
             </Tooltip>
           </div>
@@ -55,8 +60,8 @@ const OptionsHeader = ({ plannerRef, isAllEmpty, showMarks, setShowMarks }) => {
           >
             <div>
               <Tooltip title="Export">
-                <button type="button" className="settingsButton">
-                  <TiDownload className="settingsIcon" size="1.5em" />
+                <button type="button" className="settings-button">
+                  <DownloadOutlined className="settings-icon" />
                 </button>
               </Tooltip>
             </div>
@@ -64,56 +69,79 @@ const OptionsHeader = ({ plannerRef, isAllEmpty, showMarks, setShowMarks }) => {
         )}
 
         {!isAllEmpty(years) && (
-          <Popconfirm
-            placement="bottomRight"
-            title="Are you sure you want to unplan all your courses?"
-            onConfirm={() => dispatch(unscheduleAll())}
-            style={{ width: "200px" }}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Tooltip title="Unplan all courses">
-              <button type="button" className="settingsButton">
-                <FaRegCalendarTimes size="1.5em" className="settingsIcon" />
-              </button>
-            </Tooltip>
-          </Popconfirm>
+          <div>
+            <Popconfirm
+              placement="bottomRight"
+              title="Are you sure you want to unplan all your courses?"
+              onConfirm={() => dispatch(unscheduleAll())}
+              style={{ width: "200px" }}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Tooltip title="Unplan all courses">
+                <button type="button" className="settings-button">
+                  <FaRegCalendarTimes className="settings-icon" />
+                </button>
+              </Tooltip>
+            </Popconfirm>
+          </div>
         )}
 
         {areYearsHidden && (
-          <Tooltip title="Show all hidden years">
-            <button type="button" className="settingsButton" onClick={() => dispatch(unhideAllYears())}>
-              <IoIosEye size="1.5em" className="settingsIcon" />
-            </button>
-          </Tooltip>
+          <div>
+            <Tooltip title="Show all hidden years">
+              <button type="button" className="settings-button" onClick={() => dispatch(unhideAllYears())}>
+                <EyeFilled className="settings-icon" />
+              </button>
+            </Tooltip>
+          </div>
         )}
-      </div>
 
-      <div className="rightButtons">
-      <Switch
-        className="cs-toggle-locked"
-        onChange={() => setShowMarks((prev) => !prev)}
-        checkedChildren="marks shown"
-        unCheckedChildren="marks hidden"
-      />
-      <Tippy
-        content={<HelpMenu />}
-        moveTransition="transform 0.2s ease-out"
-        interactive
-        trigger="click"
-        theme={theme === "light" ? "light" : "dark"}
-        zIndex={1}
-        maxWidth="80vh"
-        placement="bottom-start"
-      >
         <div>
-          <Tooltip title="Help">
-            <button type="button" className="settingsButton helpButton">
-              <FiHelpCircle className="settingsIcon" size="1.5em" />
+          <Tooltip title="Toggle warnings for previous terms">
+            <button
+              className={`settings-button ${suppress ? "filled" : ""}`}
+              type="button"
+              onClick={() => {
+                setSuppress((prev) => !prev);
+                updateAllWarnings(
+                  dispatch,
+                  { years, startYear, completedTerms },
+                  { programCode, specialisation, minor },
+                  suppress,
+                );
+              }}
+            >
+              <WarningFilled className="settings-icon" />
             </button>
           </Tooltip>
         </div>
-      </Tippy>
+      </div>
+
+      <div className="rightButtons">
+        <Switch
+          className="cs-toggle-locked"
+          onChange={() => setShowMarks((prev) => !prev)}
+          checkedChildren="marks shown"
+          unCheckedChildren="marks hidden"
+        />
+        <Tippy
+          content={<HelpMenu />}
+          moveTransition="transform 0.2s ease-out"
+          interactive
+          trigger="click"
+          theme={theme === "light" ? "light" : "dark"}
+          maxWidth="80vh"
+          placement="bottom-start"
+        >
+          <div>
+            <Tooltip title="Help">
+              <button type="button" className="settings-button help-button">
+                <QuestionCircleOutlined className="settings-icon" />
+              </button>
+            </Tooltip>
+          </div>
+        </Tippy>
       </div>
     </div>
   );

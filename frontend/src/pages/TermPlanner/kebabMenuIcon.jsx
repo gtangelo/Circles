@@ -1,27 +1,29 @@
 import React from "react";
-import ContextMenu from "./misc/ContextMenu";
 import { useContextMenu } from "react-contexify";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+// import ContextMenu from "./misc/ContextMenu";
 import "./main.less";
 
 const KebabMenuIcon = ({ code }) => {
   const onClick = (e) => {
     e.target.style.color = (e.target.style.color == "green") ? "black" : "green";
     return 0;
-  }
-  
-  const { show , hideAll } = useContextMenu({
+  };
+
+  const { show, hideAll } = useContextMenu({
     id: `${code}-context`,
   });
 
   const displayContextMenu = (e) => {
-    e.target.style.color = (e.target.style.color == "green") ? "black" : "green";
+    e.target.style.color = (e.target.style.color === "green") ? "black" : "green";
     show(e);
   };
 
-
   return (
-    <svg className="kebabMenuIcon" onClick={displayContextMenu} onContextMenu={useContextMenu}
+    <svg
+      className="KebabMenuIcon"
+      onClick={displayContextMenu}
+      onContextMenu={useContextMenu}
       width="20px"
       height="20px"
       viewBox="0 0 16 16"
@@ -29,9 +31,9 @@ const KebabMenuIcon = ({ code }) => {
       version="1.1"
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
     >
       <circle cx="8" cy="2.5" r=".75" />
       <circle cx="8" cy="8" r=".75" />

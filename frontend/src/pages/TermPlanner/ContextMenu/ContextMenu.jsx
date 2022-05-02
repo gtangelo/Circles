@@ -41,7 +41,7 @@ const ContextMenu = ({ code, plannedFor }) => {
     dispatch(addTab(code));
   };
 
-  const mark = courses.get(code)["mark"];
+  const {mark} = courses.get(code);
   const editMark = (e, mark) => {
     const x = e.clientX;
     const y = e.clientY;

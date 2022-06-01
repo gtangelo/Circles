@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from "react";
 import { Modal, message } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { DeleteFilled, InfoCircleFilled, EditFilled } from "@ant-design/icons";
 import { FaRegCalendarTimes } from "react-icons/fa";
 import { addTab } from "../../../reducers/courseTabsSlice";
-import { removeCourse, unschedule, updateCourseMark } from "../../../reducers/plannerSlice";
-import EditMarks from "../EditMarks";
+import { removeCourse, unschedule } from "../../../reducers/plannerSlice";
+import EditMarksModal from "../EditMarksModal";
 
 import "./index.less";
 
@@ -33,56 +34,58 @@ const ContextMenu = ({ code, plannedFor }) => {
     dispatch(addTab(code));
   };
 
-  const validLetterGrades = ["SY", "PS", "CR", "DN", "HD"];
-  const [isEditMarkVisible, setIsEditMarkVisible] = useState(false);
+  // const validLetterGrades = ["SY", "PS", "CR", "DN", "HD"];
+  // const [isEditMarkVisible, setIsEditMarkVisible] = useState(false);
 
-  const showEditMark = () => {
-    setIsEditMarkVisible(true);
-  };
+  // const showEditMark = () => {
+  //   setIsEditMarkVisible(true);
+  // };
 
-  const [markInputBuf, setMarkInputBuf] = useState(
-    useSelector((state) => state.planner.courses[code].mark),
-  );
+  // const [markInputBuf, setMarkInputBuf] = useState(
+  //   useSelector((state) => state.planner.courses[code].mark),
+  // );
 
-  const handleConfirmEditMark = (mark) => {
-    const attemptedMark = ` ${mark}`.replaceAll(" ", "");
+  // const handleConfirmEditMark = (mark) => {
+  //   const attemptedMark = ` ${mark}`.replaceAll(" ", "");
 
-    if (
-      (attemptedMark.isNaN && !validLetterGrades.includes(attemptedMark))
-      || (parseFloat(attemptedMark) < 0 || parseFloat(attemptedMark) > 100)
-    ) {
-      return message.error("Could not update mark. Please enter a valid mark or letter grade");
-    }
-    dispatch(updateCourseMark({
-      code,
-      mark: attemptedMark,
-    }));
-    setIsEditMarkVisible(false);
-    return message.success("Mark Updated");
-  };
+  //   if (
+  //     (attemptedMark.isNaN && !validLetterGrades.includes(attemptedMark))
+  //     || (parseFloat(attemptedMark) < 0 || parseFloat(attemptedMark) > 100)
+  //   ) {
+  //     return message.error("Could not update mark. Please enter a valid mark or letter grade");
+  //   }
+  //   dispatch(updateCourseMark({
+  //     code,
+  //     mark: attemptedMark,
+  //   }));
+  //   setIsEditMarkVisible(false);
+  //   return message.success("Mark Updated");
+  // };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleConfirmEditMark(markInputBuf);
-    }
-  };
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Enter") {
+  //     handleConfirmEditMark(markInputBuf);
+  //   }
+  // };
 
-  const [markUpdatedQueued, setMarkUpdateQueued] = useState(false);
-  useEffect(() => {
-    if (markUpdatedQueued) {
-      setMarkUpdateQueued(false);
-      handleConfirmEditMark(markInputBuf);
-    }
-  });
+  // const [markUpdatedQueued, setMarkUpdateQueued] = useState(false);
+  // useEffect(() => {
+  //   if (markUpdatedQueued) {
+  //     setMarkUpdateQueued(false);
+  //     handleConfirmEditMark(markInputBuf);
+  //   }
+  // });
 
-  const queueEditMark = () => {
-    setMarkUpdateQueued(true);
-  };
+  // const queueEditMark = () => {
+  //   setMarkUpdateQueued(true);
+  // };
 
-  const handleCancelEditMark = () => {
-    setIsEditMarkVisible(false);
-    setMarkUpdateQueued(false);
-  };
+  // const handleCancelEditMark = () => {
+  //   setIsEditMarkVisible(false);
+  //   setMarkUpdateQueued(false);
+  // };
+
+  const [isEditMarksVisible, setIsEditMarksVisible] = useState(false);
 
   return (
     <>
@@ -95,7 +98,7 @@ const ContextMenu = ({ code, plannedFor }) => {
         <Item onClick={handleDelete}>
           <DeleteFilled className="context-menu-icon" /> Delete from Planner
         </Item>
-        <Item onClick={showEditMark}>
+        <Item onClick={() => setIsEditMarksVisible(true)}>
           <EditFilled className="context-menu-icon" />
           Edit mark
         </Item>
@@ -104,20 +107,10 @@ const ContextMenu = ({ code, plannedFor }) => {
           View Info
         </Item>
       </Menu>
-      <Modal
-        title={`Edit Mark: ${code}`}
-        visible={isEditMarkVisible}
-        onOk={() => handleConfirmEditMark(markInputBuf)}
-        onCancel={handleCancelEditMark}
-        width="300px"
-      >
-        <EditMarks
-          handleKeyDown={handleKeyDown}
-          letterGrades={validLetterGrades}
-          setInputBuffer={setMarkInputBuf}
-          handleConfirm={queueEditMark}
-        />
-      </Modal>
+      <EditMarksModal
+        isVisible={isEditMarksVisible}
+        setIsVisible={setIsEditMarksVisible}
+      />
     </>
   );
 };

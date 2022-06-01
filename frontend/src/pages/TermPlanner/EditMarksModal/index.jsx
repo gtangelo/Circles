@@ -1,3 +1,3 @@
-import EditMarks from "./EditMarks";
+import EditMarksModal from "./EditMarksModal";
 
-export default EditMarks;
+export default EditMarksModal;
